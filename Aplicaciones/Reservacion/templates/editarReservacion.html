@@ -1,0 +1,52 @@
+{% extends './plantilla.html' %}
+{% block contenido %}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light">
+        <h1>Actualizar Reservación</h1>
+
+        <form action="/procesarEdicionReservacion/{{ reservacionEditar.id_reservacion }}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="turista">Turista:</label>
+            <select class="form-control" name="turista" id="turista">
+                {% for turista in turistas %}
+                    <option value="{{ turista.id_turista }}" {% if turista.id_turista == reservacionEditar.turista.id_turista %}selected{% endif %}>
+                        {{ turista.nombre }} {{ turista.apellido }}
+                    </option>
+                {% endfor %}
+            </select><br>
+
+            <label for="fecha_inicio">Fecha de Inicio:</label>
+            <input class="form-control" type="date" name="fecha_inicio" id="fecha_inicio" value="{{ reservacionEditar.fecha_inicio }}"><br>
+
+            <label for="fecha_fin">Fecha de Fin:</label>
+            <input class="form-control" type="date" name="fecha_fin" id="fecha_fin" value="{{ reservacionEditar.fecha_fin }}"><br>
+
+            <label for="destino">Destino:</label>
+            <input class="form-control" type="text" name="destino" id="destino" value="{{ reservacionEditar.destino }}"><br>
+
+            <label for="monto">Monto:</label>
+            <input class="form-control" type="number" step="0.01" name="monto" id="monto" value="{{ reservacionEditar.monto }}"><br>
+
+            <label for="estado">Estado:</label>
+            <input class="form-control" type="text" name="estado" id="estado" value="{{ reservacionEditar.estado }}"><br>
+
+
+            <label for="logo">Logotipo:</label>
+            <input type="file" name="logo" id="logo" class="form-control"><br>
+
+            <label for="archivo">Documento:</label>
+            <input type="file" name="archivo" id="archivo" class="form-control"><br>
+
+            <button class="btn btn-warning" type="submit">
+                <i class="fa fa-pen"></i> Editar
+            </button>
+            <a class="btn btn-outline-danger" href="/reservacion">
+                <i class="fa fa-times"></i> Cancelar
+            </a>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+{% endblock %}
