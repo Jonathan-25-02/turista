@@ -1,0 +1,43 @@
+{% extends './plantilla.html' %}
+{% block contenido %}
+<div class="row">
+    <div class="col-md-3"> </div>
+    <br>
+    <div class="col-md-6 bg-light">
+        <h1>Nuevo Turista</h1>
+
+        <form action="/agregarTurista" enctype="multipart/form-data" method="post" id="frm_nuevo_turista">
+            {% csrf_token %}
+
+            <label for="nombre">Nombre:</label><br>
+            <input placeholder="Ingrese el nombre" class="form-control" type="text" name="nombre" id="nombre" required><br><br>
+
+            <label for="apellido">Apellido:</label><br>
+            <input placeholder="Ingrese el apellido" class="form-control" type="text" name="apellido" id="apellido" required><br><br>
+
+            <label for="correo">Correo:</label><br>
+            <input placeholder="Ingrese el correo electrónico" class="form-control" type="email" name="correo" id="correo" required><br><br>
+
+            <label for="telefono">Teléfono:</label><br>
+            <input placeholder="Ingrese el teléfono" class="form-control" type="text" name="telefono" id="telefono" required><br><br>
+
+            <label for="nacionalidad">Nacionalidad:</label><br>
+            <input placeholder="Ingrese la nacionalidad" class="form-control" type="text" name="nacionalidad" id="nacionalidad" required><br><br>
+
+            <label for="fecha_nacimiento">Fecha de nacimiento:</label><br>
+            <input class="form-control" type="date" name="fecha_nacimiento" id="fecha_nacimiento" required><br><br>
+
+            <!-- Futuro uso -->
+            <label for="logo">Logotipo:</label>
+            <input type="file" name="logo" id="logo" class="form-control"><br>
+
+            <label for="archivo">Documento:</label>
+            <input type="file" name="archivo" id="archivo" class="form-control"><br><br>
+
+            <button class="btn btn-success" type="submit">Guardar</button>
+            <a class="btn btn-outline-danger" href="/turista">Cancelar</a>
+        </form>
+    </div>
+    <div class="col-md-3"> </div>
+</div>
+{% endblock %}
