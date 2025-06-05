@@ -1,8 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from .models import Turista, Reservacion
 from django.contrib import messages
 
-# Create your views here.
+
 def turista(request):
     listadoTurista = Turista.objects.all()
     return render(request, "turista.html", {'turistas': listadoTurista})
@@ -52,6 +52,8 @@ def eliminarTurista(request, id):
     return redirect('/turista')
 
 
+
+
 def reservacion(request):
     listadoReservacion = Reservacion.objects.all()
     return render(request, "reservacion.html", {'reservaciones': listadoReservacion})
@@ -84,7 +86,7 @@ def agregarReservacion(request):
 def editarReservacion(request, id):
     reservacionEditar = Reservacion.objects.get(id_reservacion=id)
     turistas = Turista.objects.all()
-    return render(request, "nuevaReservacion.html", {'reservacionEditar': reservacionEditar, 'turistas': turistas})
+    return render(request, "editarReservacion.html", {'reservacionEditar': reservacionEditar, 'turistas': turistas})
 
 def procesarEdicionReservacion(request, id):
     reservacion = Reservacion.objects.get(id_reservacion=id)
