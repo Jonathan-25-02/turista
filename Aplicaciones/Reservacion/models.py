@@ -7,6 +7,9 @@ class Turista(models.Model):
     telefono = models.CharField(max_length=20)
     nacionalidad = models.CharField(max_length=50)
     fecha_nacimiento = models.DateField(null=True, blank=True)
+    logo=models.FileField(upload_to='cargos', null=True,blank=True) #subir archivo
+    archivo = models.FileField(upload_to='documentos/', null=True, blank=True) #subir documento
+
 
     def __str__(self):
         return f"{self.nombre} {self.apellido} ({self.nacionalidad})"
@@ -24,6 +27,9 @@ class Reservacion(models.Model):
         ('confirmada', 'Confirmada'),
         ('cancelada', 'Cancelada')
     ], default='pendiente')
+    logo=models.FileField(upload_to='cargos', null=True,blank=True) #subir archivo
+    archivo = models.FileField(upload_to='documentos/', null=True, blank=True) #subir documento
+
 
     def __str__(self):
         return f"Reservación {self.id_reservacion} - {self.turista.nombre} {self.turista.apellido}"     
