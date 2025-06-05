@@ -1,0 +1,78 @@
+{% extends './plantilla.html' %}
+{% block contenido %}
+<br>
+<h1>Listado de Turistas</h1>
+<a href="/nuevoTurista" class="btn btn-primary">Agregar Turista</a>
+
+<table class="table table-bordered table-striped table-hover" id="tbl_turistas">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>CORREO</th>
+            <th>TELÉFONO</th>
+            <th>NACIONALIDAD</th>
+            <th>FECHA DE NACIMIENTO</th>
+            <th>LOGO</th>
+            <th>DOCUMENTO</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        <script>
+            function eliminarTurista(id) {
+                Swal.fire({
+                    title: "CONFIRMACIÓN",
+                    text: "¿Estás seguro de eliminar al turista?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, eliminar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/eliminarTurista/" + id;
+                    }
+                });
+            }
+
+            let table = new DataTable('#tbl_turistas');
+        </script>
+
+        {% for turista in turistas %}
+        <tr>
+            <td>{{ turista.id_turista }}</td>
+            <td>{{ turista.nombre }}</td>
+            <td>{{ turista.apellido }}</td>
+            <td>{{ turista.correo }}</td>
+            <td>{{ turista.telefono }}</td>
+            <td>{{ turista.nacionalidad }}</td>
+            <td>{{ turista.fecha_nacimiento }}</td>
+            <td>
+                {% if turista.logo %}
+                    <img src="{{ turista.logo.url }}" height="80px" alt="">
+                {% else %}
+                    Ninguno
+                {% endif %}
+            </td>
+            <td>
+                {% if turista.archivo %}
+                    <a href="{{ turista.archivo.url }}" download>{{ turista.archivo.name }}</a>
+                {% else %}
+                    Ninguno
+                {% endif %}
+            </td>
+            <td>
+                <a href="/editarTurista/{{ turista.id_turista }}" class="btn btn-outline-warning">
+                    <i class="fa fa-pen"></i>
+                </a>
+                <a href="#" onclick="eliminarTurista('{{ turista.id_turista }}');" class="btn btn-outline-danger">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
