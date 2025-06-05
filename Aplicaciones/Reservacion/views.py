@@ -50,3 +50,57 @@ def eliminarTurista(request, id):
     turista.delete()
     messages.success(request, "Turista eliminado exitosamente")
     return redirect('/turista')
+
+
+def reservacion(request):
+    listadoReservacion = Reservacion.objects.all()
+    return render(request, "reservacion.html", {'reservaciones': listadoReservacion})
+
+def nuevaReservacion(request):
+    turistas = Turista.objects.all()
+    return render(request, "nuevaReservacion.html", {'turistas': turistas})
+
+def agregarReservacion(request):
+    turista_id = request.POST["turista"]
+    fecha_inicio = request.POST["fecha_inicio"]
+    fecha_fin = request.POST["fecha_fin"]
+    destino = request.POST["destino"]
+    monto = request.POST["monto"]
+    estado = request.POST["estado"]
+
+    turista = Turista.objects.get(id_turista=turista_id)
+
+    Reservacion.objects.create(
+        turista=turista,
+        fecha_inicio=fecha_inicio,
+        fecha_fin=fecha_fin,
+        destino=destino,
+        monto=monto,
+        estado=estado
+    )
+    messages.success(request, "Reservación registrada exitosamente")
+    return redirect('/reservacion')
+
+def editarReservacion(request, id):
+    reservacionEditar = Reservacion.objects.get(id_reservacion=id)
+    turistas = Turista.objects.all()
+    return render(request, "nuevaReservacion.html", {'reservacionEditar': reservacionEditar, 'turistas': turistas})
+
+def procesarEdicionReservacion(request, id):
+    reservacion = Reservacion.objects.get(id_reservacion=id)
+    turista_id = request.POST["turista"]
+    reservacion.turista = Turista.objects.get(id_turista=turista_id)
+    reservacion.fecha_inicio = request.POST["fecha_inicio"]
+    reservacion.fecha_fin = request.POST["fecha_fin"]
+    reservacion.destino = request.POST["destino"]
+    reservacion.monto = request.POST["monto"]
+    reservacion.estado = request.POST["estado"]
+    reservacion.save()
+    messages.success(request, "Reservación actualizada exitosamente")
+    return redirect('/reservacion')
+
+def eliminarReservacion(request, id):
+    reservacion = Reservacion.objects.get(id_reservacion=id)
+    reservacion.delete()
+    messages.success(request, "Reservación eliminada exitosamente")
+    return redirect('/reservacion')
