@@ -18,6 +18,7 @@ def agregarTurista(request):
     nacionalidad = request.POST["nacionalidad"]
     fecha_nacimiento = request.POST.get("fecha_nacimiento", None)
     logo=request.FILES.get("logo")
+    archivo = request.FILES.get('archivo')
 
     Turista.objects.create(
         nombre=nombre,
@@ -26,7 +27,8 @@ def agregarTurista(request):
         telefono=telefono,
         nacionalidad=nacionalidad,
         fecha_nacimiento=fecha_nacimiento,
-        logo=logo
+        logo=logo,
+        archivo=archivo
     )
     messages.success(request, "Turista registrado exitosamente")
     return redirect('/turista')
@@ -44,6 +46,7 @@ def procesarEdicionTurista(request, id):
     turista.nacionalidad = request.POST["nacionalidad"]
     turista.fecha_nacimiento = request.POST.get("fecha_nacimiento", None)
     turista.logo=request.FILES.get("logo")
+    turista.archivo = request.FILES.get('archivo')
     turista.save()
     messages.success(request, "Turista actualizado exitosamente")
     return redirect('/turista')
@@ -73,6 +76,7 @@ def agregarReservacion(request):
     monto = request.POST["monto"]
     estado = request.POST["estado"]
     logo=request.FILES.get("logo")
+    archivo = request.FILES.get('archivo')
 
     turista = Turista.objects.get(id_turista=turista_id)
 
@@ -83,7 +87,8 @@ def agregarReservacion(request):
         destino=destino,
         monto=monto,
         estado=estado,
-        logo=logo
+        logo=logo,
+        archivo=archivo
     )
     messages.success(request, "Reservación registrada exitosamente")
     return redirect('/reservacion')
@@ -103,6 +108,7 @@ def procesarEdicionReservacion(request, id):
     reservacion.monto = request.POST["monto"]
     reservacion.estado = request.POST["estado"]
     reservacion.logo = request.FILES.get("logo")
+    reservacion.archivo = request.FILES.get('archivo')
     reservacion.save()
     messages.success(request, "Reservación actualizada exitosamente")
     return redirect('/reservacion')
