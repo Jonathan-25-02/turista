@@ -1,0 +1,46 @@
+{% extends './plantilla.html' %}
+{% block contenido %}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 bg-light">
+        <h1>Actualizar Turista</h1>
+
+        <form action="/procesarEdicionTurista/{{ turistaEditar.id_turista }}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="nombre">Nombre:</label>
+            <input class="form-control" type="text" name="nombre" id="nombre" value="{{ turistaEditar.nombre }}"><br>
+
+            <label for="apellido">Apellido:</label>
+            <input class="form-control" type="text" name="apellido" id="apellido" value="{{ turistaEditar.apellido }}"><br>
+
+            <label for="correo">Correo:</label>
+            <input class="form-control" type="email" name="correo" id="correo" value="{{ turistaEditar.correo }}"><br>
+
+            <label for="telefono">Teléfono:</label>
+            <input class="form-control" type="text" name="telefono" id="telefono" value="{{ turistaEditar.telefono }}"><br>
+
+            <label for="nacionalidad">Nacionalidad:</label>
+            <input class="form-control" type="text" name="nacionalidad" id="nacionalidad" value="{{ turistaEditar.nacionalidad }}"><br>
+
+            <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+            <input class="form-control" type="date" name="fecha_nacimiento" id="fecha_nacimiento" value="{{ turistaEditar.fecha_nacimiento }}"><br>
+
+          
+            <label for="logo">Logotipo:</label>
+            <input type="file" name="logo" id="logo" class="form-control"><br>
+
+            <label for="archivo">Documento:</label>
+            <input type="file" name="archivo" id="archivo" class="form-control"><br>
+
+            <button class="btn btn-warning" type="submit">
+                <i class="fa fa-pen"></i> Editar
+            </button>
+            <a class="btn btn-outline-danger" href="/turista">
+                <i class="fa fa-times"></i> Cancelar
+            </a>
+        </form>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+{% endblock %}
